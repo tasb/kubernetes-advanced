@@ -213,10 +213,16 @@ service/echo-webapp-svc created
 ingress.networking.k8s.io/echo-app-ingress created
 ```
 
+Using the `kubectl ns` plugin, let's switch to the namespace of the application:
+
+```bash
+k ns echo-app-ns
+```
+
 Let's check the status of all resources in the namespace:
 
 ```bash
-k get all -n echo-app-ns
+k get all
 ```
 
 You should see get a list of deployments, services, and pods.
@@ -228,7 +234,7 @@ Since the application is configured to use an ingress, we need to find the IP ad
 To get the IP address of the ingress controller, run the following command:
 
 ```bash
-k get ingress -n echo-app-ns
+k get ingress
 ```
 
 You should see get an output similar to the following:
