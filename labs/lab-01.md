@@ -41,7 +41,7 @@ sudo install minikube-linux-amd64 /usr/local/bin/minikube
 To install kubectl, run the following commands:
 
 ```bash
-curl -LO https://dl.k8s.io/release/v1.23.0/bin/linux/amd64/kubectl
+curl -LO https://dl.k8s.io/release/v1.29.1/bin/linux/amd64/kubectl
 sudo install kubectl /usr/local/bin/kubectl
 ```
 
@@ -95,6 +95,10 @@ To create a Kubernetes cluster with 2 nodes using Minikube, run the following co
 minikube start -p labs --nodes 2
 ```
 
+The `--nodes 2` flag tells Minikube to create a cluster with 2 nodes.
+
+The `-p labs` flag tells Minikube to create a profile named `labs`.
+
 Wait for the cluster to be created.
 
 Then let's check the status of the cluster:
@@ -103,7 +107,13 @@ Then let's check the status of the cluster:
 k get nodes
 ```
 
-You should see two nodes in the output.
+You should get and output similar to the following:
+
+```bash
+NAME       STATUS   ROLES           AGE     VERSION
+labs       Ready    control-plane   3m8s    v1.28.3
+labs-m02   Ready    <none>          2m46s   v1.28.3
+```
 
 Check that you are using `k` instead of `kubectl` because of the alias we created.
 
@@ -120,38 +130,55 @@ k ctx
 To enable metrics server addon, run the following command:
 
 ```bash
-minikube addons enable metrics-server
+minikube addons enable metrics-server -p labs
 ```
 
 You should see get an output similar to the following:
 
 ```bash
+💡  metrics-server is an addon maintained by Kubernetes. For any concerns contact minikube on GitHub.
+You can view the list of minikube maintainers at: https://github.com/kubernetes/minikube/blob/master/OWNERS
+    ▪ Using image registry.k8s.io/metrics-server/metrics-server:v0.6.4
 🌟  The 'metrics-server' addon is enabled
 ```
 
 To enable ingress addon, run the following command:
 
 ```bash
-minikube addons enable ingress
+minikube addons enable ingress -p labs
 ```
 
 You should see get an output similar to the following:
 
 ```bash
+💡  ingress is an addon maintained by Kubernetes. For any concerns contact minikube on GitHub.
+You can view the list of minikube maintainers at: https://github.com/kubernetes/minikube/blob/master/OWNERS
+    ▪ Using image registry.k8s.io/ingress-nginx/controller:v1.9.4
+    ▪ Using image registry.k8s.io/ingress-nginx/kube-webhook-certgen:v20231011-8b53cabe0
+    ▪ Using image registry.k8s.io/ingress-nginx/kube-webhook-certgen:v20231011-8b53cabe0
+🔎  Verifying ingress addon...
 🌟  The 'ingress' addon is enabled
 ```
 
 To check the status of the addons, run the following command:
 
 ```bash
-minikube addons list
+minikube addons list -p labs
+```
+
+You should see a list of all addons available on minikube and their status.
+
+To get only the enabled addons, run the following command:
+
+```bash
+minikube addons list -p labs | grep enabled
 ```
 
 You should see get an output similar to the following:
 
 ```bash
-- ingress: enabled
-- metrics-server: enabled
+| ingress                     | labs    | enabled ✅   | Kubernetes                     |
+| metrics-server              | labs    | enabled ✅   | Kubernetes                     |
 ```
 
 ### Step 4: Deploy a simple application to the cluster
@@ -164,17 +191,26 @@ First, let's create a namespace for the application:
 k create ns echo-app-ns
 ```
 
-Then, let's deploy the application:
+Then, let's deploy the application.
+
+First, take a look at the application manifest file. Navigate to the following URL: [echo-app-full.yml](https://raw.githubusercontent.com/tasb/kubernetes-advanced/main/labs/lab01/echo-app-full.yml).
+
+Check that the file have all the resources needed to deploy the application.
+
+Then, deploy the application by running the following command:
 
 ```bash
-k apply -f https://raw.githubusercontent.com/tasb/kubernetes-advanced/main/labs/lab01/echo-app-full.yml -n echo-app-ns
+k apply -f https://raw.githubusercontent.com/tasb/kubernetes-advanced/main/labs/lab01/echo-app-full.yml
 ```
 
 You should see get an output similar to the following:
 
 ```bash
-deployment.apps/echo-app created
-service/echo-app created
+deployment.apps/echo-api-dep created
+deployment.apps/echo-webapp-dep created
+service/echo-api-svc created
+service/echo-webapp-svc created
+ingress.networking.k8s.io/echo-app-ingress created
 ```
 
 Let's check the status of all resources in the namespace:
