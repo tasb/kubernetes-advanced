@@ -8,7 +8,7 @@
   - [Step 1: Install Minikube and kubectl](#step-1-install-minikube-and-kubectl)
   - [Step 2: Create a Kubernetes cluster with 2 nodes using Minikube](#step-2-create-a-kubernetes-cluster-with-2-nodes-using-minikube)
   - [Step 3: Enable ingress and metrics server addons](#step-3-enable-ingress-and-metrics-server-addons)
-  - [Step 4: Deploy a simple application to the cluster](#step-4-deploy-a-simple-application-to-the-cluster)
+  - [Step 4: Deploy a sample application to the cluster](#step-4-deploy-a-sample-application-to-the-cluster)
   - [Step 5: Test the application and prove that cluster is working](#step-5-test-the-application-and-prove-that-cluster-is-working)
 - [Conclusion](#conclusion)
 
@@ -181,7 +181,7 @@ You should see get an output similar to the following:
 | metrics-server              | labs    | enabled ✅   | Kubernetes                     |
 ```
 
-### Step 4: Deploy a simple application to the cluster
+### Step 4: Deploy a sample application to the cluster
 
 Now let's deploy a simple application to the cluster.
 
