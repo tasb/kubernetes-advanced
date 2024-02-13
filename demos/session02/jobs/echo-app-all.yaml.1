@@ -1,0 +1,152 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: echo-app-ns
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-api-svc
+  namespace: echo-app-ns
+spec:
+  ports:
+    - port: 8080
+      targetPort: 80
+      name: api
+  selector:
+    app: echo-app
+    tier: back
+  type: ClusterIP
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-webapp-svc
+  namespace: echo-app-ns
+spec:
+  ports:
+    - port: 9000
+      targetPort: 80
+      name: web
+  selector:
+    app: echo-app
+    tier: front
+  type: ClusterIP
+
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: echo-api-db-secret
+  namespace: echo-app-ns
+data:
+  dbpass: UEBzc3cwcmQ=
+  connString: U2VydmVyPWVjaG8tZGItc3ZjLDE0MzM7SW5pdGlhbCBDYXRhbG9nPWVjaG8tbG9nO1VzZXIgSUQ9U0E7UGFzc3dvcmQ9UEBzc3cwcmQ7
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: echo-app-cfg
+data:
+  echo-api-server: echo-api-svc:8080
+
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: echo-api-dep
+  namespace: echo-app-ns
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: echo-app
+      tier: back
+  template:
+    metadata:
+      labels:
+        app: echo-app
+        tier: back
+    spec:
+      containers:
+      - name: echo-api
+        image: tasb/echo-api:k8s
+        ports:
+        - containerPort: 80
+        env:
+        - name: ConnectionStrings__DefaultConnection
+          valueFrom:
+            secretKeyRef:
+              name: echo-api-db-secret
+              key: connString
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: echo-webapp-dep
+  namespace: echo-app-ns
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: echo-app
+      tier: front
+  template:
+    metadata:
+      labels:
+        app: echo-app
+        tier: front
+    spec:
+      containers:
+      - name: echo-webapp
+        image: tasb/echo-webapp:k8s
+        ports:
+        - containerPort: 80
+        env:
+        - name: EchoAPIServer
+          valueFrom:
+            configMapKeyRef:
+              name: echo-app-cfg
+              key: echo-api-server
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: echo-app-ingress
+  namespace: echo-app-ns
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: echo-app.ingress.test
+    http:
+      paths:
+      - path: /(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: echo-webapp-svc
+            port:
+              number: 9000
+      - path: /api/(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: echo-api-svc
+            port:
+              number: 8080
+

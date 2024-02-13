@@ -1,0 +1,31 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: sample-cron-job
+spec:
+  schedule: "* * * * *"
+  successfulJobsHistoryLimit: 3 # history size for success jobs
+  failedJobsHistoryLimit: 5 # history size for failed jobs
+  jobTemplate:
+    spec:
+      completions: 4 # create a total of 4 pods
+      parallelism: 2 # run multiple pods simultanously 
+      template:
+        metadata:
+          labels:
+            color: yellow
+        spec:
+          containers:
+          - name: hello
+            image: busybox            
+            args:
+            - /bin/sh
+            - -c
+            - date; echo Hello from the Kubernetes cluster
+            - sleep 3
+          restartPolicy: OnFailure
+          nodeSelector:
+            kubernetes.io/arch: arm64
+      # ttlSecondsAfterFinished: 30  # cleanup job 30 seconds after completions
+  
+      

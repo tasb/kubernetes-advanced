@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: sts-svc
+  labels:
+    app: sample
+spec:
+  ports:
+  - port: 80
+  clusterIP: None
+  selector:
+    app: sample
+
+---
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: sts-sample
+spec:
+  selector:
+    matchLabels:
+      app: sample
+  serviceName: "sts-svc"
+  replicas: 3
+  persistentVolumeClaimRetentionPolicy:
+    whenDeleted: Delete
+    whenScaled: Delete
+  template:
+    metadata:
+      labels:
+        app: sample # has to match .spec.selector.matchLabels
+    spec:
+      containers:
+      - name: sample
+        image: mcr.microsoft.com/dotnet/samples:aspnetapp
+        ports:
+        - containerPort: 80
+          name: http
+        volumeMounts:
+        - name: logs
+          mountPath: /logs
+  volumeClaimTemplates:
+  - metadata:
+      name: logs
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "microk8s-hostpath"
+      resources:
+        requests:
+          storage: 10Mi

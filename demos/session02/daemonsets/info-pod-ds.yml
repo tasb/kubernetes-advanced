@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: podinfo-ds
+spec:
+  selector:
+    matchLabels:
+        target: info-pod
+  template:
+    metadata:
+      name: podinfo
+      labels:
+        target: info-pod
+    spec:
+      nodeSelector:
+        kubernetes.io/arch: arm64 
+      containers:
+      - name: podinfo
+        image: ghcr.io/theonorg/dotnet-pod-info:1.1
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        env: 
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: podinfo-svc
+spec:
+  ports:
+    - port: 10100
+      targetPort: 80
+      name: web
+  selector:
+    target: info-pod
+  type: LoadBalancer
