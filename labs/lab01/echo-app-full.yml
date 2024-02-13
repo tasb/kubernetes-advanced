@@ -90,6 +90,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: echo-webapp-dep
+  namespace: echo-app-ns
 spec:
   replicas: 1
   selector:
