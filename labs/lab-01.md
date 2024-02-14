@@ -272,6 +272,22 @@ curl http://echo-app.ingress.test/api/echo/kubernetes
 
 You should get `kubernetes` as the response body.
 
+Let's test with another word:
+
+```bash
+curl http://echo-app.ingress.test/api/echo/advanced
+```
+
+Now you should get `advanced` as the response body.
+
+This API have database connection to keep logs of all `echo` requests. To get a list of all logs, run the following command:
+
+```bash
+curl http://echo-app.ingress.test/api/logs
+```
+
+You should get a list of all logs on JSON format.
+
 Depending on your environment, if you have a desktop environment, you can also open a web browser and navigate to `http://echo-app.ingress.test` to see the application.
 
 ## Conclusion
