@@ -14,19 +14,11 @@ kubectl ns ds-ns
 kubectl apply -f info-pod-ds.yml
 ```
 
-## Check DaemonSet manifest
-
-- On this manifest, mention nodeSelector that makes a pod to be deployed on every node that match nodeSelector
-
-## Navigate to LoadBalancer
-
-- Check service IP
+## Check pods in every node
 
 ```bash
-kubectl get svc
+kubectl get pods -o wide
 ```
-
-- Get External IP and navigate on browser and check node name changes
 
 ## Clean up namespace
 
