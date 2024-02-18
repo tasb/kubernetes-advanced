@@ -51,3 +51,22 @@ kubectl get cronjobs
 ```bash
 kubectl get jobs
 ```
+
+## List all completed pods
+
+```bash
+kubectl get pods --field-selector=status.phase==Succeeded
+```
+
+## Delete all completed pods
+
+```bash
+kubectl delete pods --field-selector=status.phase==Succeeded
+```
+
+## Clean up namespace
+
+```bash
+kubectl ns default
+kubectl ns jobs-ns
+```

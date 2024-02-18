@@ -1,5 +1,18 @@
 # Lab 06 - Different Workloads
 
+## Table of Contents
+
+- [Objectives](#objectives)
+- [Prerequisites](#prerequisites)
+- [Guide](#guide)
+  - [Step 1: Create a StatefulSet to control your database](#step-1-create-a-statefulset-to-control-your-database)
+  - [Step 02: Update your secret](#step-02-update-your-secret)
+  - [Step 03: Restart API deployment](#step-03-restart-api-deployment)
+  - [Step 4: Test your application](#step-4-test-your-application)
+  - [Step 5:  Enable database backup](#step-5--enable-database-backup)
+  - [Step 6: Check backup data](#step-6-check-backup-data)
+- [Conclusion](#conclusion)
+
 ## Objectives
 
 On this lab you'll use a [StatefulSet](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/) to control your database and a [CronJob](https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/) to backup your database.
@@ -261,7 +274,13 @@ If you run this command several times, you can confirm that you have an history 
 
 Finally, let's confirm that the backup was made properly.
 
-Let's list all your PersistentVolumes and find out the name of the PV bound to the PVC named `echo-app-db-backup`.
+First, you need to verify in which node the pod is running.
+
+```bash
+kubectl get pods -n echo-app-ns -o wide
+```
+
+Now, let's list all your PersistentVolumes and find out the name of the PV bound to the PVC named `echo-app-db-backup`.
 
 ```bash
 PV_NAME=$(kubectl get pv -o jsonpath='{.items[?(@.spec.claimRef.name=="echo-app-db-backup")].metadata.name}')
@@ -277,10 +296,26 @@ kubectl describe pv $PV_NAME
 
 On the output you get several details from the PV but you should focus on `Path` property.
 
-You can enter minikube server running `minikube ssh` command and then navigate to the path you got from PV details and check if the folder is full of database files.
+Finally, let's enter the node and check if the folder is full of database files.
 
-You just finish this lab and built a more stable definition of a database running on a Kubernetes Cluster.
+If the pods is running on node `labs`, you should run the following command.
+
+```bash
+minikube ssh
+```
+
+If the pod is running on the node `labs-m02`, you should run the following command.
+
+```bash
+minikube ssh -n labs-m02
+```
+
+After being inside the node, navigate to the path you got from PV details and check if the folder is full of database files.
+
+To exit from the node, just run the command `exit`.
 
 ## Conclusion
+
+You just finish this lab and built a more stable definition of a database running on a Kubernetes Cluster.
 
 On this lab you learned how to use a StatefulSet to control your database and a CronJob to backup your database data.

@@ -8,12 +8,6 @@ kubectl create ns sts-ns
 kubectl ns sts-ns
 ```
 
-## Create common deployment to check diferences
-
-```bash
-kubectl apply -f hpa-sample.yaml
-```
-
 ## Create STS and Headless Service
 
 ```bash
@@ -36,6 +30,26 @@ kubectl get svc
 
 - Check that headless service don't have any IP
 
+### Get pods
+
+```bash
+kubectl get pods -o wide
+```
+
+### Delete one pod
+
+```bash
+kubectl delete pod sts-sample-0
+```
+
+### Check pods again
+
+```bash
+kubectl get pods -o wide
+```
+
+- Check that another pod was created to replace the deleted one with same name and IP
+
 ## Run pod to make queries to servers
 
 ```bash
@@ -45,13 +59,12 @@ kubectl run -it dnsutils --image=ghcr.io/theonorg/dnsutils:ubuntu bash
 ## Run commands inside container
 
 ```bash
-nslookup hpa-dotnet-svc
-
 nslookup sts-svc
 
-curl sts-sample-0.sts-svc.default.svc.cluster.local
-curl sts-sample-1.sts-svc.default.svc.cluster.local
-curl sts-sample-2.sts-svc.default.svc.cluster.local
+curl sts-svc.sts-ns.svc.cluster.local:8080
+curl sts-sample-0.sts-svc.sts-ns.svc.cluster.local:8080
+curl sts-sample-1.sts-svc.sts-ns.svc.cluster.local:8080
+curl sts-sample-2.sts-svc.sts-ns.svc.cluster.local:8080
 
 exit
 ```
@@ -68,13 +81,21 @@ kubectl get pvc
 kubectl get pv
 ```
 
-- Check that PVs were created dinamically. You can create static PVs to be used by PVCs
+- Check that PVs were created dynamically. You can create static PVs to be used by PVCs
 - Check `persistentVolumeClaimRetentionPolicy` on k8s manifest
 
 ## Delete STS
 
 ```bash
 kubectl delete sts sts-sample
+```
+
+## Check PVC and PV again
+
+```bash
+kubectl get pvc
+
+kubectl get pv
 ```
 
 ## Clean namespace
