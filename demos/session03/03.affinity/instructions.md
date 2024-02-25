@@ -30,6 +30,21 @@ kubectl get pods -o wide
 kubectl get nodes -L parity -L disktype
 ```
 
+- Set labels on nodes
+
+```bash
+kubectl label nodes labs parity=false
+kubectl label nodes labs-m02 parity=true
+kubectl label nodes labs disktype=ssd
+kubectl label nodes labs-m02 disktype=hdd
+```
+
+- Check nodes tags
+
+```bash
+kubectl get nodes -L parity -L disktype
+```
+
 - Create deployment
 
 ```bash

@@ -25,7 +25,7 @@ spec:
           - weight: 10
             preference:
               matchExpressions:
-              - key: parity
+              - key: priority
                 operator: In
                 values:
                 - "true"

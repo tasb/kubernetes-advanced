@@ -11,7 +11,7 @@ kubectl ns init-ns
 ## Apply file with all resources
 
 ```bash
-kubectl apply -f init-containers
+kubectl apply -f init-container.yml
 ```
 
 ## Check all the changes on pods
@@ -26,5 +26,11 @@ kubectl get pods -n init-ns --watch
 kubectl get svc -n init-ns
 ```
 
+## Enable tunnel to service
+
+```bash
+minikube tunnel -p labs
+```
+
 1. Get External IP on services list
-2. Open browser and navigate to http://EXTERNAL_IP:12000
+2. Curl to http://EXTERNAL_IP:12000
