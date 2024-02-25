@@ -54,7 +54,7 @@ spec:
       - name: sample
         image: mcr.microsoft.com/dotnet/samples:aspnetapp
         ports:
-        - containerPort: 80
+        - containerPort: 8080
           name: http
         volumeMounts:
         - name: logs

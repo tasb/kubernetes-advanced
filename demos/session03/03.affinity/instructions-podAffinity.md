@@ -22,7 +22,29 @@ kubectl apply -f nodename.yaml
 kubectl get pods -o wide
 ```
 
+- Check the pods are pending
+
+```bash
+k describe pod <POD_NAME>
+```
+
+- Change nodename on manifest file
+
+- Update deployment
+
+```bash
+kubectl apply -f nodename.yaml
+```
+
+- Check where pods were scheduled
+
+```bash
+kubectl get pods -o wide
+```
+
 ## nodeAffinity sample
+
+- 
 
 - Check nodes tags
 

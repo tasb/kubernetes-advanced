@@ -12,9 +12,11 @@ spec:
       labels:
         app: node-affinity
     spec:
+      nodeSelector:
+        kubernetes.io/arch: arm64 
       affinity:
         nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
+          preferredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
             - matchExpressions:
               - key: kubernetes.io/arch
@@ -25,18 +27,18 @@ spec:
           - weight: 10
             preference:
               matchExpressions:
-              - key: priority
-                operator: In
-                values:
-                - "true"
-          - weight: 10
-            preference:
-              matchExpressions:
               - key: disktype
                 operator: In
                 values:
                 - "ssd"
                 - "nvme"
+          - weight: 10
+            preference:
+              matchExpressions:
+              - key: parity
+                operator: In
+                values:
+                - "true"
       containers:
       - name: nginx
         image: nginx

@@ -18,4 +18,4 @@ spec:
         ports:
         - containerPort: 80
           protocol: TCP
-      nodeName: tiberna-hp
+      nodeName: wrong-node
