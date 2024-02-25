@@ -35,8 +35,6 @@ spec:
       labels:
         app: init-demo
     spec:
-      nodeSelector:
-        kubernetes.io/arch: arm64 
       initContainers:
       - name: init-volume
         image: busybox:1.28

@@ -1,6 +1,14 @@
 # Init Container Demos
 
-## Apply file with all resources 
+## Create namespace and change kubectl
+
+```bash
+kubectl create ns init-ns
+
+kubectl ns init-ns
+```
+
+## Apply file with all resources
 
 ```bash
 kubectl apply -f init-containers

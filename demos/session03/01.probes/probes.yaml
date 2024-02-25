@@ -12,8 +12,6 @@ spec:
       labels:
         run: probes-demo
     spec:
-      nodeSelector:
-        kubernetes.io/arch: arm64 
       containers:
       - name: probes-demo
         image: tasb/swissknife-api
