@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-affinity-deploy
+spec:
+  selector:
+    matchLabels:
+      app: node-affinity
+  replicas: 6
+  template:
+    metadata:
+      labels:
+        app: node-affinity
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/arch
+                operator: In
+                values:
+                - arm64
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 10
+            preference:
+              matchExpressions:
+              - key: parity
+                operator: In
+                values:
+                - "true"
+          - weight: 10
+            preference:
+              matchExpressions:
+              - key: disktype
+                operator: In
+                values:
+                - "ssd"
+                - "nvme"
+      containers:
+      - name: nginx
+        image: nginx
+        resources:
+          requests:
+            cpu: 300m

@@ -1,0 +1,74 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: init-ns
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: init-dynamic-pvc
+  namespace: init-ns
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: microk8s-hostpath
+  resources:
+    requests:
+      storage: 10Mi
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: init-demo
+  namespace: init-ns
+spec:
+  selector:
+    matchLabels:
+      app: init-demo
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: init-demo
+    spec:
+      nodeSelector:
+        kubernetes.io/arch: arm64 
+      initContainers:
+      - name: init-volume
+        image: busybox:1.28
+        command: ['sh', '-c', 'wget -O /my-share/index.html http://neverssl.com/online; sleep 30;']
+        volumeMounts:
+        - mountPath: "/my-share"
+          name: my-storage
+      containers:
+      - name: init-demo
+        image: nginx
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - mountPath: /usr/share/nginx/html
+          name: my-storage
+      volumes:
+        - name: my-storage
+          persistentVolumeClaim:
+            claimName: init-dynamic-pvc
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: init-lb-svc
+  namespace: init-ns
+spec:
+  ports:
+    - port: 12000
+      targetPort: 80
+      name: web
+  selector:
+    app: init-demo
+  type: LoadBalancer
