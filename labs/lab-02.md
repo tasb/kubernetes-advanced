@@ -1,4 +1,4 @@
-# Lab 06 - Different Workloads
+# Lab 02 - Different Workloads
 
 ## Table of Contents
 

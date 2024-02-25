@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: redis-cache
+  name: store
 spec:
   selector:
     matchLabels:
@@ -23,5 +23,5 @@ spec:
                 - store
             topologyKey: "kubernetes.io/hostname"
       containers:
-      - name: redis-server
+      - name: store
         image: redis:3.2-alpine

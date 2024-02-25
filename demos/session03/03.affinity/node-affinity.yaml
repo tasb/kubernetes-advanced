@@ -16,29 +16,29 @@ spec:
         kubernetes.io/arch: arm64 
       affinity:
         nodeAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
+          requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
             - matchExpressions:
               - key: kubernetes.io/arch
                 operator: In
                 values:
                 - arm64
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 10
-            preference:
-              matchExpressions:
-              - key: disktype
-                operator: In
-                values:
-                - "ssd"
-                - "nvme"
-          - weight: 10
-            preference:
-              matchExpressions:
-              - key: parity
-                operator: In
-                values:
-                - "true"
+          # preferredDuringSchedulingIgnoredDuringExecution:
+          # - weight: 10
+          #   preference:
+          #     matchExpressions:
+          #     - key: disktype
+          #       operator: In
+          #       values:
+          #       - "ssd"
+          #       - "nvme"
+          # - weight: 10
+          #   preference:
+          #     matchExpressions:
+          #     - key: parity
+          #       operator: In
+          #       values:
+          #       - "true"
       containers:
       - name: nginx
         image: nginx
