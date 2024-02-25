@@ -301,13 +301,13 @@ Finally, let's enter the node and check if the folder is full of database files.
 If the pods is running on node `labs`, you should run the following command.
 
 ```bash
-minikube ssh
+minikube ssh -p labs
 ```
 
 If the pod is running on the node `labs-m02`, you should run the following command.
 
 ```bash
-minikube ssh -n labs-m02
+minikube ssh -p labs -n labs-m02
 ```
 
 After being inside the node, navigate to the path you got from PV details and check if the folder is full of database files.
