@@ -1,0 +1,7 @@
+kind: Secret
+type: kubernetes.io/dockerconfigjson
+apiVersion: v1
+metadata:
+  name: ghcr-io-theonorg
+data:
+  .dockerconfigjson: eyJhdXRocyI6eyJnaGNyLmlvIjp7ImF1dGgiOiJkR0Z6WWpwbmFIQmZaamxzYkhFeVkyVk1kbHBwYnpWTFNqSllPRTVoZFZWcVNHaDBaRVV5TVRaNVZ6QnQifX19Cg==

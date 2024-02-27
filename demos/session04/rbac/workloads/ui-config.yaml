@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: rbac-ns
+  name: ui-config
+data:
+  user-interface.properties: |
+    color.good=green
+    color.bad=yellow
+    allow.textmode=true

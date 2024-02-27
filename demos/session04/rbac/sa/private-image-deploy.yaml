@@ -1,0 +1,20 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: rbac-ns
+  name: sa-demo
+spec:
+  selector:
+    matchLabels:
+      run: sa-demo
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: sa-demo
+    spec:
+      serviceAccountName: private-ghcr
+      containers:
+      - name: sa-demo
+        image: ghcr.io/theonorg/nginx-kubectl

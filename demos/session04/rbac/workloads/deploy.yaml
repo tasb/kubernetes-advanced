@@ -1,0 +1,19 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: rbac-ns
+  name: deploy-demo
+spec:
+  selector:
+    matchLabels:
+      run: deploy-demo
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: deploy-demo
+    spec:
+      containers:
+      - name: deploy-demo
+        image: nginx

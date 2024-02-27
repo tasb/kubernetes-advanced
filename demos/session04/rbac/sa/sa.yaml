@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: private-ghcr
+  namespace: rbac-ns
+# imagePullSecrets:
+#   - name: ghcr-io-theonorg

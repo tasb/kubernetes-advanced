@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: rbac-ns
+  name: db-config
+data:
+  database: mongodb
+  database_uri: mongodb://localhost:27018
