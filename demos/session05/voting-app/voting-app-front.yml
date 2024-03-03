@@ -14,8 +14,6 @@ spec:
         run: vote-app
         tier: front
     spec:
-      nodeSelector:
-        kubernetes.io/arch: arm64 
       containers:
       - name: web
         image: ghcr.io/theonorg/vote-app:python-redis-amd64

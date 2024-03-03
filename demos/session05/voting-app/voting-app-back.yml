@@ -14,8 +14,6 @@ spec:
         run: vote-app
         tier: back
     spec:
-      nodeSelector:
-        kubernetes.io/arch: arm64 
       containers:
       - name: redis
         image: redis
