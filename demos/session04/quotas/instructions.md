@@ -1,4 +1,4 @@
-# Quotas 
+# Quotas
 
 ## Create namespace
 

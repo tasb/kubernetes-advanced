@@ -128,7 +128,6 @@ cat ~/.docker/config.json
 kubectl create secret generic ghcr-io-theonorg --from-file=.dockerconfigjson=./secrets/dockerconfig.json --type=kubernetes.io/dockerconfigjson
 ```
 
-
 - Update Service Account (uncomment manifest)
 
 ```bash
