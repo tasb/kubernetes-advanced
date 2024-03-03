@@ -25,7 +25,7 @@ Before starting this advanced training, you should have:
 - Session #01: Review of Kubernetes Main Concepts + Lab
 - Session #02: Jobs & CronJobs, DaemonSets, StatefulSets + Lab
 - Session #03: Kubernetes Scheduler, Probes (Liveness, Readiness, Startup), Taints & Tolerations, Node Affinity + Lab
-- Session #04: RBAC, Service Accounts, Security Contexts, Quotas + Lab
+- Session #04: RBAC, Service Accounts, Quotas
 - Session #05: Network Policies + Lab
 - Session #06: Introduction to Helm, Using Helm to Deploy Applications
 - Session #07: Add Helm to Your Project + Lab
@@ -40,7 +40,7 @@ Before starting this advanced training, you should have:
 - Session #01: [Review of Kubernetes Main Concepts](slides/session-01.pdf)
 - Session #02: [Jobs & CronJobs, DaemonSets, StatefulSets](slides/session-02.pdf)
 - Session #03: [Kubernetes Scheduler, Probes, Taints & Tolerations, Node Affinity](slides/session-03.pdf)
-- Session #04: [RBAC, Service Accounts, Security Contexts, Quotas](slides/session-04.pdf)
+- Session #04: [RBAC, Service Accounts, Quotas](slides/session-04.pdf)
 - Session #05: [Network Policies](slides/session-05.pdf)
 - Session #06: [Introduction to Helm, Using Helm to Deploy Applications](slides/session-06.pdf)
 - Session #07: [Add Helm to Your Project](slides/session-07.pdf)
@@ -55,13 +55,12 @@ Before starting this advanced training, you should have:
 - Lab #01: [Review of Kubernetes Main Concepts](labs/lab-01.md)
 - Lab #02: [Jobs & CronJobs, DaemonSets, StatefulSets](labs/lab-02.md)
 - Lab #03: [Kubernetes Scheduler, Probes, Taints & Tolerations, Node Affinity](labs/lab-03.md)
-- Lab #04: [RBAC, Service Accounts, Security Contexts, Quotas](labs/lab-04.md)
-- Lab #05: [Network Policies](labs/lab-05.md)
-- Lab #06: [Using Helm to Deploy Applications](labs/lab-06.md)
-- Lab #07: [CI/CD with Kubernetes Using GitHub Actions](labs/lab-07.md)
-- Lab #08: [Logging with Fluentd, Monitoring with Prometheus & Grafana](labs/lab-08.md)
-- Lab #09: [HPA Using Prometheus and External Metrics](labs/lab-09.md)
-- Lab #10: [How to Use Istio](labs/lab-11.md)
+- Lab #04: [Network Policies](labs/lab-05.md)
+- Lab #05: [Using Helm to Deploy Applications](labs/lab-06.md)
+- Lab #06: [CI/CD with Kubernetes Using GitHub Actions](labs/lab-07.md)
+- Lab #07: [Logging with Fluentd, Monitoring with Prometheus & Grafana](labs/lab-08.md)
+- Lab #08: [HPA Using Prometheus and External Metrics](labs/lab-09.md)
+- Lab #09: [How to Use Istio](labs/lab-11.md)
 
 ## Contributing
 

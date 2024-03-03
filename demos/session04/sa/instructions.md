@@ -1,56 +1,58 @@
 # Service Account Demo
 
-## Create Service Account and set RBAC
+## Check default Service Account
+
+- Check existing default user account
+
+```bash
+kubectl get sa
+```
 
 - Check your pods are using default user account
 
 ```bash
-kubectl get sa
-
-kubectl describe pod deploy-demo-XXX 
+kubectl get pod deploy-demo-9d586d779-7jhrv -o yaml
 ```
 
-- Explain volume and volumeMount
+## Check default volume and volumeMount
+
+- Check your pods are using default volume and volumeMount
+
+```bash
+kubectl exec -it deploy-demo-9d586d779-7jhrv -- ls /var/run/secrets/kubernetes.io/serviceaccount
+```
+
+- Check content of token
+
+```bash
+kubectl exec -it deploy-demo-9d586d779-7jhrv -- cat /var/run/secrets/kubernetes.io/serviceaccount/token
+```
+
+- Check content of ca.crt
+
+```bash
+kubectl exec -it deploy-demo-9d586d779-7jhrv -- cat /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+```
+
+## Create Service Account and set RBAC
 
 - Create a ServiceAccount
 
 ```bash
-kubectl apply -f sa/sa.yaml
+kubectl apply -f accounts/public-sa.yaml
 ```
 
-- Create deployment with a private image
+- Create deployment with a public image
 
 ```bash
-kubectl apply -f sa/private-image-deploy.yaml
+kubectl apply -f deploys/public-image-deploy.yaml
 ```
 
-- Check we have an error on image pull
+- Check the service account of the pod
 
 ```bash
-kubectl describe pod sa-demo-XXXXX
+kubectl get pod sa-demo-9d586d779-7jhrv -o yaml
 ```
-
-## Configure Private Registry credentials
-
-- Create secret with ghcr.io login
-
-```bash
-kubectl apply -f ghcr-token.yaml
-```
-
-- Update Service Account (uncomment manifest)
-
-```bash
-kubectl apply -f sa/sa.yaml
-```
-
-- Restart deploymet
-
-```bash
-kubectl rollout restart deploy/sa-demo
-```
-
-- Check that your deploy ir running
 
 ## Use Kubernetes API on your container with SA
 
@@ -77,7 +79,7 @@ kubectl get pods
 - Create a role binding with service account
 
 ```bash
-kubectl apply -f sa/cluster-role-binding-sa.yaml
+kubectl apply -f roles/cluster-role-binding-sa.yaml
 ```
 
 - Run you kubectl command again
@@ -92,4 +94,55 @@ kubectl get pods -A
 
 ```bash
 kubectl get deploys
+```
+
+## Configure Private Registry credentials
+
+- Create new service account
+
+```bash
+kubectl apply -f accounts/private-sa.yaml
+```
+
+- Apply deployment with private registry
+
+```bash
+kubectl apply -f deploys/private-image-deploy.yaml
+```
+
+- Check that pod is not running due to image pull error
+
+```bash
+kubectl describe pod private-image-demo-7977cfddcb-9blx6
+```
+
+- Check where you get docker login
+
+```bash
+cat ~/.docker/config.json
+```
+
+- Update JSON file and create secret
+
+```bash
+kubectl create secret generic ghcr-io-theonorg --from-file=.dockerconfigjson=./secrets/dockerconfig.json --type=kubernetes.io/dockerconfigjson
+```
+
+
+- Update Service Account (uncomment manifest)
+
+```bash
+kubectl apply -f accounts/private-sa.yaml
+```
+
+- Restart deploymet
+
+```bash
+kubectl rollout restart deploy/private-image-demo
+```
+
+- Check that your deploy is running
+
+```bash
+kubectl get pods
 ```

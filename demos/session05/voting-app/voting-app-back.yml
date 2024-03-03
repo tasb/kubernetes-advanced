@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: voting-app-back
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+        run: vote-app
+        tier: back
+  template:
+    metadata:
+      labels:
+        run: vote-app
+        tier: back
+    spec:
+      nodeSelector:
+        kubernetes.io/arch: arm64 
+      containers:
+      - name: redis
+        image: redis
+        env:
+        - name: ALLOW_EMPTY_PASSWORD
+          value: "yes"
+        ports:
+        - containerPort: 6379
+          protocol: TCP
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: voting-app-back-svc
+  labels:
+    run: vote-app
+    tier: network
+spec:
+  ports:
+    - port: 6379
+      targetPort: 6379
+      name: redis
+  selector:
+      run: vote-app
+      tier: back
+  type: ClusterIP

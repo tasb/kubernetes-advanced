@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: voting-app-front
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+        run: vote-app
+        tier: front
+  template:
+    metadata:
+      labels:
+        run: vote-app
+        tier: front
+    spec:
+      nodeSelector:
+        kubernetes.io/arch: arm64 
+      containers:
+      - name: web
+        image: ghcr.io/theonorg/vote-app:python-redis-amd64
+        env:
+        - name: REDIS
+          value: voting-app-back-svc
+        ports:
+        - containerPort: 80
+          protocol: TCP
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: voting-app-front-svc
+  labels:
+    run: vote-app
+    tier: network
+spec:
+  ports:
+    - port: 20000
+      targetPort: 80
+      name: web
+  selector:
+      run: vote-app
+      tier: front
+  type: LoadBalancer
