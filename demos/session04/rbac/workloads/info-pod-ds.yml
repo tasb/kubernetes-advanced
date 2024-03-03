@@ -13,11 +13,9 @@ spec:
       labels:
         target: info-pod
     spec:
-      nodeSelector:
-        kubernetes.io/arch: arm64 
       containers:
       - name: podinfo
-        image: ghcr.io/theonorg/dotnet-pod-info:1.1
+        image: ghcr.io/theonorg/dotnet-pod-info:1.1-amd64
         ports:
         - containerPort: 80
           protocol: TCP

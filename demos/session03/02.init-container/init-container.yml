@@ -6,6 +6,24 @@ metadata:
 ---
 
 apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: demos-pv
+spec:
+  capacity:
+    storage: 10Gi
+  volumeMode: Filesystem
+  storageClassName: standard
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: /data/demos
+
+
+---
+
+apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: init-dynamic-pvc
@@ -13,6 +31,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
+  storageClassName: standard
   resources:
     requests:
       storage: 10Mi
