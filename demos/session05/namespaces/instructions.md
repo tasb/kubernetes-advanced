@@ -19,6 +19,7 @@ kubectl apply -f app-deploy.yml -n prod-ns
 ## Check you can access from one namespace to the other
 
 ```bash
+k get pods -n dev-ns
 kubectl exec -it myapp-deploy-XXXX -n dev-ns -- bash
 
 > curl http://myapp-svc:10100
@@ -28,7 +29,7 @@ kubectl exec -it myapp-deploy-XXXX -n dev-ns -- bash
 ## Apply namespace restriction network policies
 
 ```bash
-kubectl apply -f from-namespace/
+kubectl apply -f network-policies/
 ```
 
 ## Check that access is not allowed now
