@@ -15,3 +15,10 @@ spec:
       containers:
       - name: pod-quota-demo
         image: nginx
+        # resources:
+        #   limits:
+        #     memory: "200Mi"
+        #     cpu: "200m"
+        #   requests:
+        #     memory: "100Mi"
+        #     cpu: "100m"
