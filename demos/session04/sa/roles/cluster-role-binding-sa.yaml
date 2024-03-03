@@ -8,5 +8,5 @@ roleRef:
   name: pod-reader
 subjects:
 - kind: ServiceAccount
-  name: private-ghcr
+  name: my-sa
   namespace: rbac-ns

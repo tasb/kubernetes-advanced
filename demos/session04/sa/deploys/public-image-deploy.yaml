@@ -14,7 +14,7 @@ spec:
       labels:
         run: sa-demo
     spec:
-      serviceAccountName: private-ghcr
+      serviceAccountName: my-sa
       containers:
       - name: sa-demo
-        image: ghcr.io/theonorg/nginx-kubectl
+        image: tasb/nginx-kubectl

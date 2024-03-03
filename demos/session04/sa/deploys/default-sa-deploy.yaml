@@ -1,0 +1,19 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: rbac-ns
+  name: default-sa-demo
+spec:
+  selector:
+    matchLabels:
+      run: default-sa-demo
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: default-sa-demo
+    spec:
+      containers:
+      - name: default-sa-demo
+        image: tasb/nginx-kubectl

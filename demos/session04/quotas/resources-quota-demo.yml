@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: resources-quota-demo
+spec:
+  selector:
+    matchLabels:
+      purpose: resources-demo
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        purpose: resources-demo
+    spec:
+      containers:
+      - name: resources-quota-demo
+        image: nginx
+        resources:
+          limits:
+            memory: "800Mi"
+            cpu: "800m"
+          requests:
+            memory: "600Mi"
+            cpu: "400m"
