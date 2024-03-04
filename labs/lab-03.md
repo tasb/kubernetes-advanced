@@ -181,7 +181,7 @@ To do that, you can use node affinity to schedule the pods on nodes with a speci
 First, let's add a label to the node where you want to schedule the pods. Run the following command:
 
 ```bash
-kubectl label nodes labs-m02 disk=ssd
+kubectl label nodes labs-m02 disktype=ssd
 ```
 
 You can check the label on the node running the following command:
