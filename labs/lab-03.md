@@ -250,15 +250,15 @@ affinity:
   podAffinity:
     requiredDuringSchedulingIgnoredDuringExecution:
     - labelSelector:
-      matchExpressions:
-      - key: app
-        operator: In
-        values:
-          - echo-app
-      - key: tier
-        operator: In
-        values:
-          - db
+        matchExpressions:
+        - key: app
+          operator: In
+          values:
+            - echo-app
+        - key: tier
+          operator: In
+          values:
+            - db
       topologyKey: "kubernetes.io/hostname"
 ```
 
