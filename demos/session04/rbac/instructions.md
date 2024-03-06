@@ -55,14 +55,14 @@ kubectl apply -f ./workloads
 - Generate private key and certificate signing request
 
 ```bash
-openssl genrsa -out dev01.key 2048
-openssl req -new -key dev01.key -out dev01.csr -subj "/CN=dev01/O=developers"
+openssl genrsa -out user01.key 2048
+openssl req -new -key user01.key -out user01.csr -subj "/CN=user01/O=developers"
 ```
 
 - Update `csr.yaml` file to update request
 
 ```bash
-cat dev01.csr | base64 | tr -d "\n"
+cat user01.csr | base64 | tr -d "\n"
 ```
 
 - Create CSR
@@ -80,7 +80,7 @@ kubectl get csr
 - Approve the CSR
 
 ```bash
-kubectl certificate approve user-request-dev01
+kubectl certificate approve user-request-user01
 ```
 
 - Check CSR status
@@ -92,15 +92,15 @@ kubectl get csr
 - Export certificate
 
 ```bash
-kubectl get csr user-request-dev01 -o jsonpath='{.status.certificate}'| base64 -d > dev01.crt
+kubectl get csr user-request-user01 -o jsonpath='{.status.certificate}'| base64 -d > user01.crt
 ```
 
 - Add user config to kubeconfig
 
 ```bash
-kubectl config set-credentials dev01 --client-key=~/k8s-keys/dev01.key --client-certificate=~/k8s-keys/dev01.crt --embed-certs=true
+kubectl config set-credentials dev01 --client-key=./user01.key --client-certificate=./user01.crt --embed-certs=true
 
-kubectl config set-context dev01 --cluster=microk8s-cluster --user=dev01
+kubectl config set-context user01 --cluster=labs --user=user01
 ```
 
 ## Run kubectl commands with new user
