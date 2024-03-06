@@ -28,7 +28,7 @@ minikube stop
 To start the cluster and enable Calico plugin, you need to execute the following command.
 
 ```bash
-minikube start -p labs --cni calico
+minikube start --nodes 2 -p labs --cni calico
 ```
 
 To check if Calico is running properly, execute the following command.
