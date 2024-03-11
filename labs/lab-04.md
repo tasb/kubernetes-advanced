@@ -22,7 +22,7 @@ This plugin will implement all your network configurations and additionally have
 If you have your minikube cluster running, you need to stop it.
 
 ```bash
-minikube stop
+minikube stop -p labs
 ```
 
 To start the cluster and enable Calico plugin, you need to execute the following command.
