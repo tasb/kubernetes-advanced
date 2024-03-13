@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "voting-app.fullname" . | lower }}
+  labels:
+    app: {{ include "voting-app.fullname" .  | lower }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "voting-app.fullname" .  | lower }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "voting-app.fullname" .  | lower }}
+    spec:
+      containers:
+        - name: vote-back
+          image: "ghcr.io/theonorg/vote-app:{{ .Values.images.backTag }}"
+          ports:
+            - containerPort: 6379
+          env:
+            - name: ALLOW_EMPTY_PASSWORD
+              value: "yes"
+          {{- with .Values.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+        - name: vote-front
+          image: "ghcr.io/theonorg/vote-app:{{ .Values.images.frontTag }}"
+          ports:
+            - containerPort: 80
+              name: http
+          env:
+            - name: REDIS
+              value: localhost
+          {{- with .Values.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

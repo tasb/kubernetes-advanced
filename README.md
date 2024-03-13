@@ -55,12 +55,12 @@ Before starting this advanced training, you should have:
 - Lab #01: [Review of Kubernetes Main Concepts](labs/lab-01.md)
 - Lab #02: [Jobs & CronJobs, DaemonSets, StatefulSets](labs/lab-02.md)
 - Lab #03: [Kubernetes Scheduler, Probes, Taints & Tolerations, Node Affinity](labs/lab-03.md)
-- Lab #04: [Network Policies](labs/lab-05.md)
-- Lab #05: [Using Helm to Deploy Applications](labs/lab-06.md)
-- Lab #06: [CI/CD with Kubernetes Using GitHub Actions](labs/lab-07.md)
-- Lab #07: [Logging with Fluentd, Monitoring with Prometheus & Grafana](labs/lab-08.md)
-- Lab #08: [HPA Using Prometheus and External Metrics](labs/lab-09.md)
-- Lab #09: [How to Use Istio](labs/lab-11.md)
+- Lab #04: [Network Policies](labs/lab-04.md)
+- Lab #05: [Using Helm to Deploy Applications](labs/lab-05.md)
+- Lab #06: [CI/CD with Kubernetes Using GitHub Actions](labs/lab-06.md)
+- Lab #07: [Logging with Fluentd, Monitoring with Prometheus & Grafana](labs/lab-07.md)
+- Lab #08: [HPA Using Prometheus and External Metrics](labs/lab-08.md)
+- Lab #09: [How to Use Istio](labs/lab-09.md)
 
 ## Contributing
 

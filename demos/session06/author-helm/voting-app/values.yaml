@@ -1,0 +1,15 @@
+replicaCount: 1
+
+images:
+  frontTag: "python-redis-arm"
+  backTag: "redis-arm"
+
+service:
+  type: LoadBalancer
+  # port: 25000
+  # protocol: TCP
+
+resources: {}
+
+nodeSelector:
+  kubernetes.io/arch: arm64 

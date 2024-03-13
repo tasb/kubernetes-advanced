@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "voting-app.fullname" . | lower }}-test-connection"
+  labels:
+    app: {{ include "voting-app.fullname" . | lower }}-test
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: curl
+      image: nginx
+      command: ['curl']
+      args: ['http://{{ include "voting-app.fullname" . | lower }}:{{ .Values.service.port | default "28000" }}']
+  restartPolicy: Never

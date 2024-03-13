@@ -1,0 +1,6 @@
+apiVersion: v2
+appVersion: 1.0.0
+description: Simple VotingApp with frontend python and backedn REDIS
+name: voting-app
+type: application
+version: 0.2.0

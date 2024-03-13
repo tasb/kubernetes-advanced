@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "voting-app.fullname" . | lower }}
+  labels:
+    app: {{ include "voting-app.fullname" . | lower }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    {{- if .Values.service.port }}
+    - port: {{ .Values.service.port }}
+    {{- else }}
+    - port: 28000
+    {{- end }}
+      targetPort: http
+      protocol: {{ .Values.service.protocol | default "TCP" | quote }}
+      name: http
+  selector:
+    app: {{ include "voting-app.fullname" .  | lower }}
