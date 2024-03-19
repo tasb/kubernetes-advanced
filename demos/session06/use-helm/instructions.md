@@ -65,7 +65,7 @@ helm list -A
 ## Upgrade Helm Chart
 
 ```bash
-helm upgrade nginx bitnami/nginx  --version 13.2.16 -n nginx --set image.tag=latest
+helm upgrade nginx bitnami/nginx  --version 15.1.3 -n nginx --set image.tag=latest
 ```
 
 ## Check again created resources
