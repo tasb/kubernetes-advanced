@@ -220,7 +220,7 @@ tier: front
 
 {{- define "echo-app.api.labels" -}}
 app: {{ .Release.Name }}
-tier: front
+tier: back
 {{- end }}
 
 {{- define "echo-app.db.labels" -}}
