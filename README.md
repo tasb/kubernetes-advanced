@@ -40,10 +40,8 @@ Before starting this advanced training, you should have:
 - [RBAC, Service Accounts, Quotas](slides/04.RBAC.pdf)
 - [Network Policies](slides/05.NetworkPolicies.pdf)
 - [Introduction to Helm, Using Helm to Deploy Applications](slides/06.Helm.pdf)
-- [CI/CD with Kubernetes Using GitHub Actions](slides/session-08.pdf)
-- [Logging with Fluentd, Monitoring with Prometheus & Grafana](slides/session-09.pdf)
-- [HPA Using Prometheus and External Metrics](slides/session-10.pdf)
-- [Service Mesh, Benefits, Best Practices, and Guidelines, Introduction to Istio](slides/session-11.pdf)
+- [Monitoring in Kubernetes](slides/07.Monitoring.pdf)
+- [Service Mesh, Benefits, Best Practices, and Guidelines, Introduction to Istio](slides/08.ServiceMesh.pdf)
 
 ## Labs
 
@@ -52,10 +50,6 @@ Before starting this advanced training, you should have:
 - Lab #03: [Kubernetes Scheduler, Probes, Taints & Tolerations, Node Affinity](labs/lab-03.md)
 - Lab #04: [Network Policies](labs/lab-04.md)
 - Lab #05: [Using Helm to Deploy Applications](labs/lab-05.md)
-- Lab #06: [CI/CD with Kubernetes Using GitHub Actions](labs/lab-06.md)
-- Lab #07: [Logging with Fluentd, Monitoring with Prometheus & Grafana](labs/lab-07.md)
-- Lab #08: [HPA Using Prometheus and External Metrics](labs/lab-08.md)
-- Lab #09: [How to Use Istio](labs/lab-09.md)
 
 ## Contributing
 
